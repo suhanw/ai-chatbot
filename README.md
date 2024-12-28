@@ -4,9 +4,9 @@ https://chatbot-server-mi7w.onrender.com
 
 # Local development
 
-1. Create an OpenAI API key and assign it to the `OPENAI_API_KEY` environment variable. Make sure you have Docker installed and running.
+1. Create an OpenAI API key and assign it to the `OPENAI_API_KEY` environment variable.
 
-2. Build and start Docker containers:
+2. Make sure you have Docker installed and running. Build and start Docker containers:
 
 ```
 npm start
