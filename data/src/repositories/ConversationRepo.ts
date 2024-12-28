@@ -1,3 +1,4 @@
+import { DeleteResult } from "mongoose";
 import { IConversation, Conversation } from "../models/Conversation";
 
 export interface IConversationRepo {
@@ -8,6 +9,7 @@ export interface IConversationRepo {
     userId: string
   ) => Promise<IConversation | null>;
   update: (conversation: IConversation) => Promise<IConversation | null>;
+  deleteById: (conversationId: string, userId: string) => Promise<DeleteResult>;
 }
 
 export class ConversationRepo implements IConversationRepo {
@@ -36,5 +38,12 @@ export class ConversationRepo implements IConversationRepo {
       ["_id", "title", "updatedAt"],
       { sort: { updatedAt: -1 } } // most recent conversations first
     ).exec();
+  }
+
+  async deleteById(conversationId: string, userId: string) {
+    return await Conversation.deleteOne({
+      _id: conversationId,
+      user: userId,
+    });
   }
 }

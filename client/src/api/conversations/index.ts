@@ -4,6 +4,7 @@ const GET_CONVERSATIONS_PATH = "/api/conversations";
 const GET_CONVERSATION_BY_ID_PATH = "/api/conversations/:conversationId";
 const POST_CONVERSATION_PATH = "/api/conversations";
 const PUT_CONVERSATION_BY_ID_PATH = "/api/conversations/:conversationId";
+const DELETE_CONVERSATION_BY_ID_PATH = "/api/conversations/:conversationId";
 
 export const getConversationsApi = async () => {
   return await fetchWrapper(GET_CONVERSATIONS_PATH);
@@ -37,6 +38,15 @@ export const putConversationByIdApi = async (
     {
       method: "PUT",
       body: JSON.stringify(conversation),
+    }
+  );
+};
+
+export const deleteConversationByIdApi = async (conversationId: string) => {
+  return await fetchWrapper(
+    DELETE_CONVERSATION_BY_ID_PATH.replace(":conversationId", conversationId),
+    {
+      method: "DELETE",
     }
   );
 };

@@ -13,6 +13,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import {
+  useDeleteConversation,
   useGetConversationList,
   useSetCurrentConversationId,
   useUpdateConversationTitle,
@@ -152,6 +153,7 @@ function ItemSelectMode({ _id, title, setEditMode }: any) {
 function MoreMenu({ setDisplayMoreMenu, setEditMode, _id }: any) {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { deleteConversation } = useDeleteConversation({ conversationId: _id });
   const open = Boolean(anchorEl);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -167,7 +169,7 @@ function MoreMenu({ setDisplayMoreMenu, setEditMode, _id }: any) {
   };
   const handleDelete = () => {
     handleClose();
-    console.log("deleting");
+    deleteConversation();
   };
 
   return (

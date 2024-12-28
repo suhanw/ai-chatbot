@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSlice } from "@reduxjs/toolkit";
 import { getCurrentUserSuccess } from "../auth";
 import {
+  deleteConversationByIdApi,
   getConversationByIdApi,
   getConversationsApi,
   postConversationApi,
@@ -240,6 +241,37 @@ export const useUpdateConversationTitle = ({ conversationId }: any) => {
 
   return {
     updateConversationTitle,
+    error,
+    clearError: () => setError(null),
+  };
+};
+
+export const useDeleteConversation = ({ conversationId }: any) => {
+  const dispatch = useDispatch();
+  const conversationList = useSelector(
+    (state: any) => state.data.conversations.list
+  );
+  const [error, setError] = useState<any>(null);
+
+  const deleteConversation = async () => {
+    const oldConversationList = [...conversationList];
+
+    // optimistic UI update
+    const newConversationList = conversationList.filter(
+      ({ _id }: any) => _id !== conversationId
+    );
+    dispatch(getConversationsSuccess(newConversationList));
+
+    try {
+      await deleteConversationByIdApi(conversationId);
+    } catch (err) {
+      setError(err);
+      dispatch(getConversationsSuccess(oldConversationList));
+    }
+  };
+
+  return {
+    deleteConversation,
     error,
     clearError: () => setError(null),
   };

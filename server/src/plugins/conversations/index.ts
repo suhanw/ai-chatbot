@@ -19,6 +19,7 @@ export class Conversations {
     router.put("/:conversationId", this.updateConversation);
     router.get("/", this.getConversations);
     router.get("/:conversationId", this.getConversation);
+    router.delete("/:conversationId", this.deleteConversation);
     router.use(this.handleError);
 
     app.use("/api/conversations", router);
@@ -139,6 +140,17 @@ export class Conversations {
       }
 
       res.json({ data: conversation });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  deleteConversation: RequestHandler = async (req, res, next) => {
+    const { id: userId } = req.session.user || {};
+    const { conversationId } = req.params;
+    try {
+      const data = await conversationRepo.deleteById(conversationId, userId);
+      res.json({ data });
     } catch (err) {
       next(err);
     }
