@@ -29,7 +29,7 @@ export const putConversationByIdApi = async (
   conversationId: string,
   conversation: {
     title: string;
-    messages: { role: string; content: string }[];
+    messages?: { role: string; content: string }[];
   }
 ) => {
   return await fetchWrapper(

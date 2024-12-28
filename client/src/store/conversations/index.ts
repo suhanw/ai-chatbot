@@ -207,3 +207,40 @@ export const useUpdateConversation = () => {
     clearError,
   };
 };
+
+export const useUpdateConversationTitle = ({ conversationId }: any) => {
+  const conversationList = useSelector(
+    (state: any) => state.data.conversations.list
+  );
+  const dispatch = useDispatch();
+  const [error, setError] = useState<any>(null);
+
+  const updateConversationTitle = async (title: string) => {
+    const oldConversationList = [...conversationList];
+
+    // optimistic UI update
+    const newConversationList = [
+      {
+        _id: conversationId,
+        title,
+      },
+      ...conversationList.filter(({ _id }: any) => _id !== conversationId),
+    ];
+    dispatch(getConversationsSuccess(newConversationList));
+
+    try {
+      await putConversationByIdApi(conversationId, {
+        title,
+      });
+    } catch (err) {
+      setError(err);
+      dispatch(getConversationsSuccess(oldConversationList));
+    }
+  };
+
+  return {
+    updateConversationTitle,
+    error,
+    clearError: () => setError(null),
+  };
+};
