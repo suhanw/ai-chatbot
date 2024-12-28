@@ -9,7 +9,7 @@ export interface IMessage {
 export interface IConversation {
   _id?: string;
   title: string;
-  messages: IMessage[];
+  messages?: IMessage[];
   user: IUser;
   updatedAt?: Date;
 }

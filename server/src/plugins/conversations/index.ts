@@ -100,30 +100,39 @@ export class Conversations {
       const { id: userId } = req.session.user || {};
       const { conversationId } = req.params;
       const { title, messages } = req.body;
+      let conversation;
 
-      const aiResponse = await aiClient.generateResponse(messages);
-      const aiMessage = aiResponse?.choices?.[0]?.message;
+      if (messages?.length) {
+        const aiResponse = await aiClient.generateResponse(messages);
+        const aiMessage = aiResponse?.choices?.[0]?.message;
 
-      if (!aiMessage) {
-        throw {
-          status: 502,
-          message:
-            "Sorry! I'm feeling a bit slow today. Please try again in a minute.",
-        };
+        if (!aiMessage) {
+          throw {
+            status: 502,
+            message:
+              "Sorry! I'm feeling a bit slow today. Please try again in a minute.",
+          };
+        }
+
+        conversation = await conversationRepo.update({
+          _id: conversationId,
+          user: userId,
+          title,
+          messages: [
+            ...messages,
+            {
+              role: aiMessage.role,
+              content: aiMessage.content,
+            },
+          ],
+        });
+      } else {
+        conversation = await conversationRepo.update({
+          _id: conversationId,
+          user: userId,
+          title,
+        });
       }
-
-      const conversation = await conversationRepo.update({
-        _id: conversationId,
-        user: userId,
-        title,
-        messages: [
-          ...messages,
-          {
-            role: aiMessage.role,
-            content: aiMessage.content,
-          },
-        ],
-      });
 
       if (!conversation) {
         throw { status: 422, message: "Conversation not updated." };
