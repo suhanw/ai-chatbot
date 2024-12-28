@@ -9,6 +9,7 @@ import {
   postConversationApi,
   putConversationByIdApi,
 } from "../../api/conversations";
+import { IRootState } from "../";
 
 interface IConversationsState {
   list: { _id: string; title: string; updatedAt: Date }[];
@@ -16,7 +17,7 @@ interface IConversationsState {
     _id?: string;
     title: string;
     messages: { role: "user" | "assistant"; content: string }[];
-  } | null;
+  };
 }
 
 const initialState: IConversationsState = {
@@ -70,7 +71,7 @@ export const conversationsReducer = conversationsSlice.reducer;
 
 export const useGetConversationList = (isLoggedIn: boolean) => {
   const conversationList = useSelector(
-    (state: any) => state.data.conversations.list
+    (state: IRootState) => state.data.conversations.list
   );
   const dispatch = useDispatch();
   const [error, setError] = useState<any>(null);
@@ -95,7 +96,7 @@ export const useGetConversationList = (isLoggedIn: boolean) => {
 
 export const useSetCurrentConversationId = () => {
   const currentConversationId = useSelector(
-    (state: any) => state.data.conversations.currentConversation?._id
+    (state: IRootState) => state.data.conversations.currentConversation?._id
   );
   const dispatch = useDispatch();
 
@@ -109,7 +110,7 @@ export const useSetCurrentConversationId = () => {
 
 export const useGetCurrentConversation = () => {
   const currentConversation = useSelector(
-    (state: any) => state.data.conversations.currentConversation
+    (state: IRootState) => state.data.conversations.currentConversation
   );
   const dispatch = useDispatch();
   const [error, setError] = useState<any>(null);
@@ -149,10 +150,10 @@ export const useAddNewConversation = () => {
 
 export const useUpdateConversation = () => {
   const currentConversation = useSelector(
-    (state: any) => state.data.conversations.currentConversation
+    (state: IRootState) => state.data.conversations.currentConversation
   );
   const conversationList = useSelector(
-    (state: any) => state.data.conversations.list
+    (state: IRootState) => state.data.conversations.list
   );
   const dispatch = useDispatch();
   const [error, setError] = useState<any>(null);
@@ -211,7 +212,7 @@ export const useUpdateConversation = () => {
 
 export const useUpdateConversationTitle = ({ conversationId }: any) => {
   const conversationList = useSelector(
-    (state: any) => state.data.conversations.list
+    (state: IRootState) => state.data.conversations.list
   );
   const dispatch = useDispatch();
   const [error, setError] = useState<any>(null);
@@ -249,7 +250,7 @@ export const useUpdateConversationTitle = ({ conversationId }: any) => {
 export const useDeleteConversation = ({ conversationId }: any) => {
   const dispatch = useDispatch();
   const conversationList = useSelector(
-    (state: any) => state.data.conversations.list
+    (state: IRootState) => state.data.conversations.list
   );
   const [error, setError] = useState<any>(null);
 

@@ -7,6 +7,7 @@ import {
   signupApi,
   logoutApi,
 } from "../../api/auth";
+import { IRootState } from "../";
 
 interface IAuthState {
   currentUser: { email: string; password: string } | null;
@@ -35,7 +36,7 @@ export const authReducer = authSlice.reducer;
 
 export function useGetCurrentUser() {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: any) => state.data.auth);
+  const { currentUser } = useSelector((state: IRootState) => state.data.auth);
 
   const getCurrentUser = async () => {
     try {
@@ -111,6 +112,8 @@ export function useLogout() {
 }
 
 export function useCurrentUser() {
-  const currentUser = useSelector((state: any) => state.data.auth.currentUser);
+  const currentUser = useSelector(
+    (state: IRootState) => state.data.auth.currentUser
+  );
   return { currentUser, isLoggedIn: Boolean(currentUser) };
 }
