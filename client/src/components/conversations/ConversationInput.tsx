@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState, useRef, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
@@ -13,8 +13,19 @@ import { useUpdateConversation } from "../../store/conversations";
 function ConversationInput() {
   const theme = useTheme();
   const [content, setContent] = useState("");
-  const { updateConversation, error, clearError, isLoading } =
-    useUpdateConversation();
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  const {
+    currentConversation,
+    isLoading,
+    error,
+    updateConversation,
+    clearError,
+  } = useUpdateConversation();
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [currentConversation?._id]);
 
   const sendMessage = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -45,6 +56,7 @@ function ConversationInput() {
         }}
       >
         <TextareaAutosize
+          ref={inputRef}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           aria-label="Message chatbot"

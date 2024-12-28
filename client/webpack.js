@@ -44,6 +44,9 @@ const config = {
   plugins: [
     new WebpackManifestPlugin({
       fileName: "manifest.json",
+      // https://github.com/shellscape/webpack-manifest-plugin?tab=readme-ov-file#isinitial
+      // isInitial is true for the main entrypoint and false for all other chunks
+      filter: (file) => file.isInitial, 
       writeToFileEmit: true, // write to `dist` for server to consume
     }),
     new CopyPlugin({

@@ -39,8 +39,8 @@ const conversationsSlice = createSlice({
     setCurrentConversationId: (state, action) => {
       state.currentConversation = {
         _id: action.payload,
-        title: "",
-        messages: [],
+        title: state.currentConversation?.title || "New conversation",
+        messages: state.currentConversation?.messages || [],
       };
     },
     getCurrentConversationSuccess: (state, action) => {
@@ -199,5 +199,11 @@ export const useUpdateConversation = () => {
     setError(null);
   };
 
-  return { updateConversation, error, clearError, isLoading };
+  return {
+    currentConversation,
+    error,
+    isLoading,
+    updateConversation,
+    clearError,
+  };
 };
