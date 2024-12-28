@@ -9,6 +9,12 @@ import { store } from "./store";
 
 console.log("NODE_ENV", process.env.NODE_ENV);
 
+declare global {
+  interface Window {
+    isLoggedIn: boolean;
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {

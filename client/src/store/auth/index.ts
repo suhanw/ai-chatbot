@@ -21,6 +21,9 @@ const authSlice = createSlice({
   reducers: {
     getCurrentUserSuccess: (state, action) => {
       state.currentUser = action.payload;
+      if (!state.currentUser) {
+        window.isLoggedIn = false;
+      }
     },
     getAuthError: (state, action) => {
       state.currentUser = null;
@@ -51,7 +54,11 @@ export function useGetCurrentUser() {
     getCurrentUser();
   }, []);
 
-  return { getCurrentUser, currentUser, isLoggedIn: Boolean(currentUser) };
+  return {
+    getCurrentUser,
+    currentUser,
+    isLoggedIn: Boolean(currentUser) || window.isLoggedIn,
+  };
 }
 
 export function useLogin() {

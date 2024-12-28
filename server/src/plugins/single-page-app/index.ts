@@ -17,7 +17,7 @@ async function getBundleCdnUrl() {
 
 export class SinglePageApp {
   constructor(app: Application) {
-    app.get("/", async (_, res) => {
+    app.get("/", async (req, res) => {
       const bundleCdnUrl = await getBundleCdnUrl();
       res.contentType("text/html").send(`
         <!DOCTYPE html>
@@ -25,6 +25,7 @@ export class SinglePageApp {
           <head>
             <link rel="icon" href="${process.env.FAVICON_URL}" />
             <title>My Chatbot</title>
+            <script>window.isLoggedIn=${Boolean(req.session.user)}</script>
           </head>
           <body>
             <div id="root"></div>
