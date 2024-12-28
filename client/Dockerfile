@@ -6,6 +6,6 @@ FROM base AS dependencies
 WORKDIR /usr/src/app
 COPY package*.json ./
 # Download dependencies as a separate step to take advantage of Docker's caching.
-RUN npm install --development
+RUN npm ci --include=dev
 # Copy the rest of the source files into the image.
 COPY . .
