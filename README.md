@@ -2,12 +2,9 @@
 
 https://chatbot-server-mi7w.onrender.com
 
-[Click here](https://www.loom.com/share/03533e70f01742759eae725439a4eaeb?sid=af205a46-37d8-4b65-91f5-02c66670509c) to see a quick demo.
-
-
 # Local development
 
-1. Create an OpenAI API key and assign it to the `OPENAI_API_KEY` environment variable. Make sure you have Docker installed and running. 
+1. Create an OpenAI API key and assign it to the `OPENAI_API_KEY` environment variable. Make sure you have Docker installed and running.
 
 2. Build and start Docker containers:
 
@@ -65,8 +62,8 @@ The application uses OpenAI's GPT model for generating responses, with a abstrac
 
 ### Project Structure
 
-- Modular architecture with clear separation of concerns 
-- Loosely coupled client, server, data, cache, and integration components 
+- Modular architecture with clear separation of concerns
+- Loosely coupled client, server, data, cache, and integration components
 - TypeScript throughout for type safety and strong DevEx
 - Docker compose to simplify local environment setup
 - Consistent code style and formatting
@@ -133,7 +130,6 @@ The application uses OpenAI's GPT model for generating responses, with a abstrac
 ### Features
 
 - Polish the format of the AI responses
-- Add the ability to edit conversation titles
 - Add file upload support to enable multi-modal conversations
 - Add conversation export/sharing
 - Integrate more AI providers (e.g., Google, Anthropic)
