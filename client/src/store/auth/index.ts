@@ -9,6 +9,12 @@ import {
 } from "../../api/auth";
 import { IRootState } from "../";
 
+declare global {
+  interface Window {
+    isLoggedIn: boolean;
+  }
+}
+
 interface IAuthState {
   currentUser: { email: string; password: string } | null;
 }
