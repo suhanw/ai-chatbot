@@ -79,7 +79,9 @@ function ItemEditMode({ _id, title, editMode, setEditMode }: any) {
   };
   const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setEditMode(false);
-    updateConversationTitle(e.target.value);
+    if (e.target.value) {
+      updateConversationTitle(e.target.value);
+    }
   };
 
   return (
