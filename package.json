@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "docker compose -f compose.yaml up -d --build",
     "prod:start": "docker compose -f compose.prod.yaml up -d --build",
-    "stop": "docker compose -f compose.yaml down -v",
+    "stop": "docker compose down -v",
     "dev:client": "webpack serve --config client/webpack.js",
     "build:client": "webpack --config client/webpack.js",
     "dev:server": "webpack --config server/webpack.js --watch",
