@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSlice } from "@reduxjs/toolkit";
+import { useQuery } from "@tanstack/react-query";
+
 import {
   getCurrentUserApi,
   loginApi,
@@ -27,9 +29,7 @@ const authSlice = createSlice({
   reducers: {
     getCurrentUserSuccess: (state, action) => {
       state.currentUser = action.payload;
-      if (!state.currentUser) {
-        window.isLoggedIn = false;
-      }
+      window.isLoggedIn = Boolean(state.currentUser);
     },
     getAuthError: (state, action) => {
       state.currentUser = null;
@@ -45,23 +45,21 @@ export const authReducer = authSlice.reducer;
 
 export function useGetCurrentUser() {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: IRootState) => state.data.auth);
+  const currentUser = useSelector(
+    (state: IRootState) => state.data.auth.currentUser
+  );
 
-  const getCurrentUser = async () => {
-    try {
-      const response = await getCurrentUserApi();
-      dispatch(getCurrentUserSuccess(response.data));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { data: response } = useQuery({
+    queryKey: ["currentUser"],
+    queryFn: getCurrentUserApi,
+  });
 
   useEffect(() => {
-    getCurrentUser();
-  }, []);
+    if (!response) return;
+    dispatch(getCurrentUserSuccess(response.data));
+  }, [response]);
 
   return {
-    getCurrentUser,
     currentUser,
     isLoggedIn: Boolean(currentUser) || window.isLoggedIn,
   };
@@ -122,11 +120,4 @@ export function useLogout() {
   };
 
   return { logout };
-}
-
-export function useCurrentUser() {
-  const currentUser = useSelector(
-    (state: IRootState) => state.data.auth.currentUser
-  );
-  return { currentUser, isLoggedIn: Boolean(currentUser) };
 }

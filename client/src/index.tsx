@@ -4,6 +4,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import { red, grey } from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import App from "./components/App";
 import { store } from "./store";
 
@@ -23,13 +25,17 @@ const theme = createTheme({
   },
 });
 
+const queryClient = new QueryClient();
+
 const container = document.getElementById("root");
 const root = createRoot(container!);
 root.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </Provider>
   </ThemeProvider>
 );
