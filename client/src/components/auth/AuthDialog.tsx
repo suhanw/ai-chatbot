@@ -21,7 +21,7 @@ import BenderIcon from "../conversations/BenderIcon";
 
 function AuthDialog() {
   const { isLoggedIn } = useGetCurrentUser();
-  const [loginView, setLoginView] = useState(true);
+  const [loginView, setLoginView] = useState(false);
 
   if (isLoggedIn) return null;
   return (
