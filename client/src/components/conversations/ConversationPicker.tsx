@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
+import Skeleton from "@mui/material/Skeleton";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -18,11 +19,25 @@ import {
   useSetCurrentConversationId,
   useUpdateConversationTitle,
 } from "../../store/conversations";
-import { useCurrentUser } from "../../store/auth";
 
 function ConversationPicker() {
-  const { isLoggedIn } = useCurrentUser();
-  const { conversationList } = useGetConversationList(isLoggedIn);
+  const { isLoading, conversationList } = useGetConversationList();
+
+  if (isLoading) {
+    return (
+      <>
+        <div style={{ height: "48px", padding: "8px 16px" }}>
+          <Skeleton variant="rectangular" height="100%" />
+        </div>
+        <div style={{ height: "48px", padding: "8px 16px" }}>
+          <Skeleton variant="rectangular" height="100%" />
+        </div>
+        <div style={{ height: "48px", padding: "8px 16px" }}>
+          <Skeleton variant="rectangular" height="100%" />
+        </div>
+      </>
+    );
+  }
 
   if (!conversationList.length) {
     return (

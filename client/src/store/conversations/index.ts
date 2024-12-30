@@ -69,12 +69,16 @@ export const {
 
 export const conversationsReducer = conversationsSlice.reducer;
 
-export const useGetConversationList = (isLoggedIn: boolean) => {
+export const useGetConversationList = () => {
+  const currentUser = useSelector(
+    (state: IRootState) => state.data.auth.currentUser
+  );
   const conversationList = useSelector(
     (state: IRootState) => state.data.conversations.list
   );
   const dispatch = useDispatch();
   const [error, setError] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getConversationList = async () => {
     try {
@@ -82,16 +86,19 @@ export const useGetConversationList = (isLoggedIn: boolean) => {
       dispatch(getConversationsSuccess(response.data));
     } catch (err) {
       setError(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (currentUser) {
+      setIsLoading(true);
       getConversationList();
     }
-  }, [isLoggedIn]);
+  }, [currentUser]);
 
-  return { conversationList, getConversationList, error };
+  return { conversationList, getConversationList, error, isLoading };
 };
 
 export const useSetCurrentConversationId = () => {
