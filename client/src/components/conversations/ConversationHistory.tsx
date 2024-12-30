@@ -67,8 +67,9 @@ function ConversationHistory() {
                 <Box
                   sx={{
                     background: theme.palette.grey[100],
-                    display: "inline-flex",
                     alignSelf: "flex-end",
+                    display: "inline-flex",
+                    flexDirection: "column",
                     padding: "10px 20px",
                     margin: "20px 10px 0 0",
                     borderRadius: "20px",
