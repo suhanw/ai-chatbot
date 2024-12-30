@@ -13,7 +13,10 @@ import { hashFunction, matchPassword } from "./helpers";
 
 declare module "express-session" {
   interface SessionData {
-    user: any;
+    user: {
+      id: string;
+      email: string;
+    };
   }
 }
 
@@ -74,7 +77,7 @@ export class Auth {
       const { hashedPassword, salt } = await hashFunction(password);
       user = await userRepo.create({ email, hashedPassword, salt });
 
-      req.session.user = { id: user._id, email: user.email };
+      req.session.user = { id: user._id!, email: user.email };
       res.json({ data: req.session.user });
     } catch (err) {
       next(err);
@@ -93,7 +96,7 @@ export class Auth {
         throw { status: 401, message: "Incorrect email or password." };
       }
 
-      req.session.user = { id: user._id, email: user.email };
+      req.session.user = { id: user._id!, email: user.email };
       res.json({ data: req.session.user });
     } catch (err) {
       next(err);

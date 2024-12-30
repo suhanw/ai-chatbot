@@ -16,7 +16,7 @@ interface IConversationsState {
   currentConversation: {
     _id?: string;
     title: string;
-    messages: { role: "user" | "assistant"; content: string }[];
+    messages: { _id?: string; role: "user" | "assistant"; content: string }[];
   };
 }
 
@@ -159,13 +159,16 @@ export const useUpdateConversation = () => {
   const [error, setError] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const updateConversation = async (content: any) => {
+  const updateConversation = async (content: string) => {
     const oldConversation = { ...currentConversation };
     setIsLoading(true);
 
     try {
       let response;
-      const message = { role: "user", content };
+      const message: { role: "user" | "assistant"; content: string } = {
+        role: "user",
+        content,
+      };
 
       // Optimistic UI update
       dispatch(
@@ -210,7 +213,11 @@ export const useUpdateConversation = () => {
   };
 };
 
-export const useUpdateConversationTitle = ({ conversationId }: any) => {
+export const useUpdateConversationTitle = ({
+  conversationId,
+}: {
+  conversationId: string;
+}) => {
   const conversationList = useSelector(
     (state: IRootState) => state.data.conversations.list
   );
@@ -226,7 +233,9 @@ export const useUpdateConversationTitle = ({ conversationId }: any) => {
         _id: conversationId,
         title,
       },
-      ...conversationList.filter(({ _id }: any) => _id !== conversationId),
+      ...conversationList.filter(
+        ({ _id }: { _id: string }) => _id !== conversationId
+      ),
     ];
     dispatch(getConversationsSuccess(newConversationList));
 
@@ -247,7 +256,11 @@ export const useUpdateConversationTitle = ({ conversationId }: any) => {
   };
 };
 
-export const useDeleteConversation = ({ conversationId }: any) => {
+export const useDeleteConversation = ({
+  conversationId,
+}: {
+  conversationId: string;
+}) => {
   const dispatch = useDispatch();
   const conversationList = useSelector(
     (state: IRootState) => state.data.conversations.list
@@ -259,7 +272,7 @@ export const useDeleteConversation = ({ conversationId }: any) => {
 
     // optimistic UI update
     const newConversationList = conversationList.filter(
-      ({ _id }: any) => _id !== conversationId
+      ({ _id }: { _id: string }) => _id !== conversationId
     );
     dispatch(getConversationsSuccess(newConversationList));
 

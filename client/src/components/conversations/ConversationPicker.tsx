@@ -39,14 +39,22 @@ function ConversationPicker() {
 
   return (
     <List disablePadding>
-      {conversationList?.map(({ _id, title }: any) => (
-        <ConversationPickerItem key={_id} _id={_id} title={title} />
-      ))}
+      {conversationList?.map(
+        ({ _id, title }: { title: string; _id: string }) => (
+          <ConversationPickerItem key={_id} _id={_id} title={title} />
+        )
+      )}
     </List>
   );
 }
 
-function ConversationPickerItem({ title, _id }: any) {
+function ConversationPickerItem({
+  title,
+  _id,
+}: {
+  title: string;
+  _id: string;
+}) {
   const [editMode, setEditMode] = useState<boolean>(false);
   return (
     <ListItem disablePadding>
@@ -64,7 +72,17 @@ function ConversationPickerItem({ title, _id }: any) {
   );
 }
 
-function ItemEditMode({ _id, title, editMode, setEditMode }: any) {
+function ItemEditMode({
+  _id,
+  title,
+  editMode,
+  setEditMode,
+}: {
+  title: string;
+  _id: string;
+  editMode: boolean;
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [newTitle, setNewTitle] = useState<string>(title);
   const inputRef = useRef<HTMLInputElement>(null);
   const { updateConversationTitle } = useUpdateConversationTitle({
@@ -80,7 +98,7 @@ function ItemEditMode({ _id, title, editMode, setEditMode }: any) {
   };
   const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setEditMode(false);
-    if (e.target.value) {
+    if (e.target.value && e.target.value !== title) {
       updateConversationTitle(e.target.value.trim());
     }
   };
@@ -103,7 +121,15 @@ function ItemEditMode({ _id, title, editMode, setEditMode }: any) {
   );
 }
 
-function ItemSelectMode({ _id, title, setEditMode }: any) {
+function ItemSelectMode({
+  _id,
+  title,
+  setEditMode,
+}: {
+  _id: string;
+  title: string;
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const theme = useTheme();
   const { currentConversationId, setCurrentConversationId } =
     useSetCurrentConversationId();
@@ -144,13 +170,24 @@ function ItemSelectMode({ _id, title, setEditMode }: any) {
           _id={_id}
           setDisplayMoreMenu={setDisplayMoreMenu}
           setEditMode={setEditMode}
+          isSelected={isSelected}
         />
       )}
     </ListItemButton>
   );
 }
 
-function MoreMenu({ setDisplayMoreMenu, setEditMode, _id }: any) {
+function MoreMenu({
+  setDisplayMoreMenu,
+  setEditMode,
+  _id,
+  isSelected,
+}: {
+  _id: string;
+  isSelected: boolean;
+  setDisplayMoreMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { deleteConversation } = useDeleteConversation({ conversationId: _id });
@@ -200,10 +237,12 @@ function MoreMenu({ setDisplayMoreMenu, setEditMode, _id }: any) {
           <EditIcon sx={{ marginRight: "5px" }} />
           <small>Edit</small>
         </MenuItem>
-        <MenuItem onClick={handleDelete}>
-          <DeleteIcon sx={{ marginRight: "5px" }} />
-          <small>Delete</small>
-        </MenuItem>
+        {!isSelected && (
+          <MenuItem onClick={handleDelete}>
+            <DeleteIcon sx={{ marginRight: "5px" }} />
+            <small>Delete</small>
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

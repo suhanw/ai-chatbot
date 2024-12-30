@@ -49,62 +49,73 @@ function ConversationHistory() {
         overflowY: "auto",
       }}
     >
-      {currentConversation?.messages?.map(({ _id, role, content }: any) => {
-        const htmlContent = markdownToHtmlProcessor.processSync(content).value;
-        return (
-          <Fragment key={_id}>
-            {role === "user" ? (
-              <Box
-                sx={{
-                  background: theme.palette.grey[100],
-                  display: "inline-flex",
-                  alignSelf: "flex-end",
-                  padding: "10px 20px",
-                  margin: "20px 10px 0 0",
-                  borderRadius: "20px",
-                }}
-                dangerouslySetInnerHTML={{ __html: htmlContent }}
-              />
-            ) : (
-              <Box
-                sx={{
-                  padding: "10px 10px 10px 0",
-                  marginTop: "20px",
-                  display: "flex",
-                  alignItems: "flex-start",
-                }}
-              >
-                <SmartToyIcon
-                  fontSize="large"
-                  sx={{
-                    marginRight: "10px",
-                  }}
-                />
+      {currentConversation?.messages?.map(
+        ({
+          _id,
+          role,
+          content,
+        }: {
+          _id?: string;
+          role: "user" | "assistant";
+          content: string;
+        }) => {
+          const htmlContent =
+            markdownToHtmlProcessor.processSync(content).value;
+          return (
+            <Fragment key={_id}>
+              {role === "user" ? (
                 <Box
                   sx={{
-                    overflow: "hidden",
-                    "& > p": {
-                      margin: 0,
-                    },
-                    "& > pre": {
-                      width: "90%",
-                      padding: "10px",
-                      margin: "16px auto",
-                      borderRadius: "10px",
-                      overflowX: "auto",
-                      background: "#333333",
-                    },
-                    "& > pre > code": {
-                      color: "#66d9ef",
-                    },
+                    background: theme.palette.grey[100],
+                    display: "inline-flex",
+                    alignSelf: "flex-end",
+                    padding: "10px 20px",
+                    margin: "20px 10px 0 0",
+                    borderRadius: "20px",
                   }}
                   dangerouslySetInnerHTML={{ __html: htmlContent }}
                 />
-              </Box>
-            )}
-          </Fragment>
-        );
-      })}
+              ) : (
+                <Box
+                  sx={{
+                    padding: "10px 10px 10px 0",
+                    marginTop: "20px",
+                    display: "flex",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <SmartToyIcon
+                    fontSize="large"
+                    sx={{
+                      marginRight: "10px",
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      overflow: "hidden",
+                      "& > p": {
+                        margin: 0,
+                      },
+                      "& > pre": {
+                        width: "90%",
+                        padding: "10px",
+                        margin: "16px auto",
+                        borderRadius: "10px",
+                        overflowX: "auto",
+                        background: "#333333",
+                      },
+                      "& > pre > code": {
+                        color: "#66d9ef",
+                      },
+                    }}
+                    dangerouslySetInnerHTML={{ __html: htmlContent }}
+                  />
+                </Box>
+              )}
+            </Fragment>
+          );
+        }
+      )}
       <div ref={latestMessageRef} />
     </Box>
   );

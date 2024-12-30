@@ -10,7 +10,7 @@ export interface IConversation {
   _id?: string;
   title: string;
   messages?: IMessage[];
-  user: IUser;
+  user: IUser | string;
   updatedAt?: Date;
 }
 

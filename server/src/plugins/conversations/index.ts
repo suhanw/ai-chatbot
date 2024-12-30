@@ -52,7 +52,7 @@ export class Conversations {
             content: aiMessage.content,
           },
         ],
-        user: userId,
+        user: userId!,
       });
 
       if (!conversation) {
@@ -71,7 +71,7 @@ export class Conversations {
       const { id: userId } = req.session.user || {};
       const conversation = await conversationRepo.findById(
         conversationId,
-        userId
+        userId!
       );
 
       if (!conversation) {
@@ -88,7 +88,7 @@ export class Conversations {
     try {
       const { id: userId } = req.session.user || {};
 
-      const conversations = await conversationRepo.findByUser(userId);
+      const conversations = await conversationRepo.findByUser(userId!);
 
       res.json({ data: conversations });
     } catch (err) {
@@ -117,7 +117,7 @@ export class Conversations {
 
         conversation = await conversationRepo.update({
           _id: conversationId,
-          user: userId,
+          user: userId!,
           title,
           messages: [
             ...messages,
@@ -130,7 +130,7 @@ export class Conversations {
       } else {
         conversation = await conversationRepo.update({
           _id: conversationId,
-          user: userId,
+          user: userId!,
           title,
         });
       }
@@ -149,7 +149,7 @@ export class Conversations {
     const { id: userId } = req.session.user || {};
     const { conversationId } = req.params;
     try {
-      const data = await conversationRepo.deleteById(conversationId, userId);
+      const data = await conversationRepo.deleteById(conversationId, userId!);
       res.json({ data });
     } catch (err) {
       next(err);

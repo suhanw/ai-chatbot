@@ -18,7 +18,7 @@ export const getConversationByIdApi = async (conversationId: string) => {
 
 export const postConversationApi = async (conversation: {
   title: string;
-  messages?: { role: string; content: string }[];
+  messages?: { role: "user" | "assistant"; content: string }[];
 }) => {
   return await fetchWrapper(POST_CONVERSATION_PATH, {
     method: "POST",
@@ -30,7 +30,7 @@ export const putConversationByIdApi = async (
   conversationId: string,
   conversation: {
     title: string;
-    messages?: { role: string; content: string }[];
+    messages?: { _id?: string; role: "user" | "assistant"; content: string }[];
   }
 ) => {
   return await fetchWrapper(
