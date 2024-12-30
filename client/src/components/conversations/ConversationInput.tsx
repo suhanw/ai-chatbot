@@ -25,7 +25,7 @@ function ConversationInput() {
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, [currentConversation?._id]);
+  }, [currentConversation?._id, currentConversation?.messages?.length]);
 
   const sendMessage = (e: SyntheticEvent) => {
     e.preventDefault();

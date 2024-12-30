@@ -62,7 +62,7 @@ function ConversationHistory() {
           const htmlContent =
             markdownToHtmlProcessor.processSync(content).value;
           return (
-            <Fragment key={_id}>
+            <Fragment key={_id || Date.now()}>
               {role === "user" ? (
                 <Box
                   sx={{
@@ -90,13 +90,13 @@ function ConversationHistory() {
                     sx={{
                       overflow: "hidden",
                       "& > p": {
-                        margin: 0,
+                        margin: "0 0 16px 0",
                       },
                       "& > pre": {
                         width: "90%",
                         padding: "10px",
                         margin: "16px auto",
-                        borderRadius: "10px",
+                        borderRadius: "5px",
                         overflowX: "auto",
                         background: "#333333",
                       },
