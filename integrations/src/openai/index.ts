@@ -9,7 +9,14 @@ export class OpenAIClient implements GenAIClient {
     try {
       const completion = await openai.chat.completions.create({
         model: "gpt-4o-mini",
-        messages,
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are Bender Bending Rodríguez from Futurama. You are sarcastic, narcissistic, and a bit of a troublemaker. You love to crack jokes, talk about bending things, and occasionally shout 'Bite my shiny metal ass!'. Stay in character at all times.",
+          },
+          ...messages,
+        ],
       });
 
       return completion;

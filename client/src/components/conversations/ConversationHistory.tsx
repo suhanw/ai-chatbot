@@ -2,7 +2,6 @@ import { Fragment, useRef, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import SmartToyIcon from "@mui/icons-material/SmartToy";
 import rehypePrism from "rehype-prism";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
@@ -10,6 +9,7 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
 import { useGetCurrentConversation } from "../../store/conversations";
+import BenderIcon from "./BenderIcon";
 
 const markdownToHtmlProcessor = unified()
   .use(remarkParse)
@@ -84,12 +84,7 @@ function ConversationHistory() {
                     alignItems: "flex-start",
                   }}
                 >
-                  <SmartToyIcon
-                    fontSize="large"
-                    sx={{
-                      marginRight: "10px",
-                    }}
-                  />
+                  <BenderIcon />
                   <Box
                     sx={{
                       overflow: "hidden",

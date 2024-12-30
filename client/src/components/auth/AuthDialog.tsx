@@ -13,11 +13,11 @@ import FormHelperText from "@mui/material/FormHelperText";
 import InputLabel from "@mui/material/InputLabel";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import SmartToyIcon from "@mui/icons-material/SmartToy";
 import Box from "@mui/material/Box";
 
 import { useGetCurrentUser } from "../../store/auth";
 import useAuthForm from "./useAuthForm";
+import BenderIcon from "../conversations/BenderIcon";
 
 function AuthDialog() {
   const { isLoggedIn } = useGetCurrentUser();
@@ -36,19 +36,14 @@ function AuthDialog() {
 }
 
 function AuthDialogHeader({ loginView }: { loginView: boolean }) {
-  const theme = useTheme();
   return (
     <>
-      <SmartToyIcon
-        fontSize="large"
-        sx={{
-          width: "50px",
-          height: "50px",
+      <BenderIcon
+        style={{
+          width: "80px",
+          height: "80px",
           margin: "30px auto 0px",
           padding: "10px",
-          borderRadius: "50%",
-          background: theme.palette.primary.dark,
-          color: theme.palette.primary.light,
         }}
       />
       {loginView ? (
