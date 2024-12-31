@@ -33,7 +33,7 @@ function ConversationHistory() {
     return (
       <Box sx={{ padding: "20px 0" }}>
         <Typography variant="h3" textAlign="center">
-          What can I help with?
+          How can I help, meatbag?
         </Typography>
       </Box>
     );

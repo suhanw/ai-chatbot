@@ -59,8 +59,8 @@ function ConversationInput() {
           ref={inputRef}
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          aria-label="Message chatbot"
-          placeholder="Message chatbot"
+          aria-label="Message Bender"
+          placeholder="Message Bender"
           maxRows={3}
           style={{
             resize: "none",

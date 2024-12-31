@@ -24,7 +24,7 @@ export class SinglePageApp {
         <html>
           <head>
             <link rel="icon" href="${process.env.FAVICON_URL}" />
-            <title>My Chatbot</title>
+            <title>Chat with Bender</title>
             <script>window.isLoggedIn=${Boolean(req.session.user)}</script>
           </head>
           <body>
