@@ -157,7 +157,20 @@ export class Conversations {
   };
 
   handleError: ErrorRequestHandler = (err, req, res, next) => {
-    console.error(err);
+    console.error(
+      "CONVERSATION_ERROR",
+      JSON.stringify(
+        {
+          userId: req.session?.user?.id,
+          conversationId: req.params?.conversationId,
+          conversationTitle: req.body?.title,
+          conversationMessages: req.body?.messages,
+          err,
+        },
+        null,
+        2
+      )
+    );
     res.status(err.status || 500).send(err.message);
   };
 }
