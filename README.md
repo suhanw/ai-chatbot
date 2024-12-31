@@ -58,7 +58,7 @@ The application uses OpenAI's GPT model for generating responses, with a abstrac
 - Error handling with user-friendly messages
 - Persistent login sessions
 
-## Architecture Design
+## Architecture
 
 ### Project Structure
 
@@ -90,7 +90,7 @@ The application uses OpenAI's GPT model for generating responses, with a abstrac
 - Redis for session management
 - Repository design pattern to abstract data access logic from business logic
 
-#### Infrastructure
+### Infrastructure
 
 - Docker containerization for easy deployment and scaling
 - Separate development and production configurations
