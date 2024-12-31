@@ -32,6 +32,13 @@ export class Conversations {
       const { id: userId } = req.session.user || {};
       const { messages, title } = req.body;
 
+      console.log(
+        JSON.stringify({
+          title,
+          messages,
+        })
+      );
+
       const aiResponse = await aiClient.generateResponse(messages);
       const aiMessage = aiResponse?.choices?.[0]?.message;
 
