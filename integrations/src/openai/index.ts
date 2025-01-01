@@ -27,7 +27,7 @@ export class OpenAIClient implements GenAIClient {
         messages: _messages,
       });
 
-      return completion;
+      return completion?.choices?.[0]?.message;
     } catch (err) {
       console.error(
         "OPENAI_ERROR",

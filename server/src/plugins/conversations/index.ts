@@ -33,9 +33,7 @@ export class Conversations {
       const { messages, title } = req.body;
 
       const aiResponse = await aiClient.generateResponse(messages);
-      const aiMessage = aiResponse?.choices?.[0]?.message;
-
-      if (!aiMessage) {
+      if (!aiResponse) {
         throw {
           status: 502,
           message:
@@ -48,8 +46,8 @@ export class Conversations {
         messages: [
           ...messages,
           {
-            role: aiMessage.role,
-            content: aiMessage.content,
+            role: aiResponse.role,
+            content: aiResponse.content,
           },
         ],
         user: userId!,
@@ -105,9 +103,7 @@ export class Conversations {
 
       if (messages?.length) {
         const aiResponse = await aiClient.generateResponse(messages);
-        const aiMessage = aiResponse?.choices?.[0]?.message;
-
-        if (!aiMessage) {
+        if (!aiResponse) {
           throw {
             status: 502,
             message:
@@ -122,8 +118,8 @@ export class Conversations {
           messages: [
             ...messages,
             {
-              role: aiMessage.role,
-              content: aiMessage.content,
+              role: aiResponse.role,
+              content: aiResponse.content,
             },
           ],
         });
