@@ -32,7 +32,7 @@ function ConversationHistory() {
   if (!currentConversation?.messages?.length) {
     return (
       <Box sx={{ padding: "20px 0" }}>
-        <Typography variant="h3" textAlign="center">
+        <Typography variant="h3" textAlign="center" sx={{ fontSize: "30px" }}>
           How can I help, meatbag?
         </Typography>
       </Box>
