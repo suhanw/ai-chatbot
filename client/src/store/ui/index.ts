@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "../";
+
 import { getCurrentUserSuccess } from "../auth";
+
+import { type IRootState } from "../";
 
 interface IUiState {
   sideBarOpen: boolean;
