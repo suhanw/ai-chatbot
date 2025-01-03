@@ -16,6 +16,9 @@ services:
     name: chatbot-server
     runtime: docker
     dockerfilePath: ./server/Dockerfile
+    buildFilter:
+      ignoredPaths:
+        - client/**/*
     # scaling:
     #   minInstances: 1
     #   maxInstances: 3
