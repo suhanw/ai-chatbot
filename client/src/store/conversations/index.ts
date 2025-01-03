@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSlice } from "@reduxjs/toolkit";
+
 import { getCurrentUserSuccess } from "../auth";
 import {
   deleteConversationByIdApi,
@@ -9,14 +10,16 @@ import {
   postConversationApi,
   putConversationByIdApi,
 } from "../../api/conversations";
-import { IRootState } from "../";
+
+import { type IRootState } from "../";
+import { type IMessage } from "@data";
 
 interface IConversationsState {
   list: { _id: string; title: string; updatedAt: Date }[];
   currentConversation: {
     _id?: string;
     title: string;
-    messages: { _id?: string; role: "user" | "assistant"; content: string }[];
+    messages: IMessage[];
   };
 }
 
@@ -172,7 +175,7 @@ export const useUpdateConversation = () => {
 
     try {
       let response;
-      const message: { role: "user" | "assistant"; content: string } = {
+      const message: IMessage = {
         role: "user",
         content,
       };

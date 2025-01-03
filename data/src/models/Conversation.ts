@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 import { IUser } from "./User";
 
 export interface IMessage {
+  _id?: string;
   role: "user" | "assistant";
   content: string;
 }

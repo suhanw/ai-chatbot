@@ -9,7 +9,8 @@ import {
   signupApi,
   logoutApi,
 } from "../../api/auth";
-import { IRootState } from "../";
+
+import { type IRootState } from "../";
 
 declare global {
   interface Window {

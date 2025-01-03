@@ -11,6 +11,8 @@ import { unified } from "unified";
 import { useGetCurrentConversation } from "../../store/conversations";
 import BenderIcon from "./BenderIcon";
 
+import { type IMessage } from "@data";
+
 const markdownToHtmlProcessor = unified()
   .use(remarkParse)
   .use(remarkRehype, { allowDangerousHtml: true })
@@ -50,15 +52,7 @@ function ConversationHistory() {
       }}
     >
       {currentConversation?.messages?.map(
-        ({
-          _id,
-          role,
-          content,
-        }: {
-          _id?: string;
-          role: "user" | "assistant";
-          content: string;
-        }) => {
+        ({ _id, role, content }: IMessage) => {
           const htmlContent =
             markdownToHtmlProcessor.processSync(content).value;
           return (

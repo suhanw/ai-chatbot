@@ -1,5 +1,7 @@
 import { fetchWrapper } from "../helpers";
 
+import { type IMessage } from "@data";
+
 const GET_CONVERSATIONS_PATH = "/api/conversations";
 const GET_CONVERSATION_BY_ID_PATH = "/api/conversations/:conversationId";
 const POST_CONVERSATION_PATH = "/api/conversations";
@@ -18,7 +20,7 @@ export const getConversationByIdApi = async (conversationId: string) => {
 
 export const postConversationApi = async (conversation: {
   title: string;
-  messages?: { role: "user" | "assistant"; content: string }[];
+  messages?: IMessage[];
 }) => {
   return await fetchWrapper(POST_CONVERSATION_PATH, {
     method: "POST",
@@ -30,7 +32,7 @@ export const putConversationByIdApi = async (
   conversationId: string,
   conversation: {
     title: string;
-    messages?: { _id?: string; role: "user" | "assistant"; content: string }[];
+    messages?: IMessage[];
   }
 ) => {
   return await fetchWrapper(
