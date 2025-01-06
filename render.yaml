@@ -2,6 +2,7 @@ services:
   # Web service for the client (Static Site)
   - type: web
     name: chatbot-client
+    plan: free
     runtime: static
     buildCommand: npm ci --include=dev && npm run build:client
     staticPublishPath: ./dist
@@ -47,4 +48,5 @@ services:
 
   - type: redis
     name: chatbot-cache
+    plan: free
     ipAllowList: [] # Only allow internal connections
