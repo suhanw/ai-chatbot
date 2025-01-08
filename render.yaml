@@ -14,15 +14,12 @@ services:
 
   - type: web
     name: chatbot-server
+    plan: free
     runtime: docker
     dockerfilePath: ./server/Dockerfile
     buildFilter:
       ignoredPaths:
         - client/**/*
-    # scaling:
-    #   minInstances: 1
-    #   maxInstances: 3
-    #   targetCPUPercent: 80
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
