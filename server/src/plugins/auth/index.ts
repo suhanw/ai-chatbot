@@ -1,13 +1,13 @@
 import {
-  Application,
   Router,
-  ErrorRequestHandler,
-  RequestHandler,
+  type Application,
+  type ErrorRequestHandler,
+  type RequestHandler,
 } from "express";
 import session from "express-session";
 import { RedisStore } from "connect-redis";
 
-import { IUserRepo, UserRepo } from "@data";
+import { UserRepo, type IUserRepo } from "@data";
 import { redisClient } from "@cache";
 import { hashFunction, matchPassword } from "./helpers";
 

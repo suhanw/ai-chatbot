@@ -4,6 +4,7 @@ import { Auth } from "./plugins/auth";
 import { Conversations } from "./plugins/conversations";
 import { SinglePageApp } from "./plugins/single-page-app";
 import { HealthCheck } from "./plugins/health";
+
 connectDB();
 
 const app = express();

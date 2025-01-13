@@ -1,12 +1,12 @@
 import {
-  Application,
   Router,
-  RequestHandler,
-  ErrorRequestHandler,
+  type Application,
+  type RequestHandler,
+  type ErrorRequestHandler,
 } from "express";
 import { requireLogin } from "../auth/helpers";
-import { IConversationRepo, ConversationRepo } from "@data";
-import { GenAIClient, OpenAIClient } from "@integrations";
+import { ConversationRepo, type IConversationRepo } from "@data";
+import { OpenAIClient, type GenAIClient } from "@integrations";
 
 const conversationRepo: IConversationRepo = new ConversationRepo();
 const aiClient: GenAIClient = new OpenAIClient();

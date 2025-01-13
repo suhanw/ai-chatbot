@@ -1,4 +1,4 @@
-import { Application } from "express";
+import { type Application } from "express";
 
 async function getBundleCdnUrl() {
   let url = `http://localhost:8080/client.js`;
