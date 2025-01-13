@@ -1,6 +1,6 @@
 # Project URL
 
-https://chatbot-server-mi7w.onrender.com
+https://www.suhanwijaya.com/ai-chatbot
 
 # Local development
 
