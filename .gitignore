@@ -2,3 +2,4 @@ node_modules
 dist
 mongodb_data
 redis_data
+.envrc
