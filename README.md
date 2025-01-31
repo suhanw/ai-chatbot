@@ -40,7 +40,7 @@ npm stop
 
 ### AI Integration
 
-The application uses OpenAI's GPT model for generating responses, with a abstract `GenAIClient` interface to allow for future integrations with other AI providers.
+The application uses OpenAI's GPT model for generating responses, with a `GenAIClient` interface to allow for future integrations with other AI providers.
 
 ## Design and Usability
 
